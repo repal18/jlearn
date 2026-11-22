@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Beranda — J-Learn SMKN 1 Lahat{% endblock %}
+{% block content %}
+<section class="hero-v2 wrap">
+  <div class="hero-v2-copy reveal">
+    <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR JAPANESE LEARNING SPACE</div>
+    <h1>Mulai dari satu huruf,<br><em>buka dunia baru.</em></h1>
+    <p class="hero-lead">Belajar Bahasa Jepang dengan cara yang lebih ringan, terarah, dan menyenangkan. Mulai dari nol, lalu berkembang dengan ritmemu sendiri.</p>
+    <div class="hero-actions"><a class="btn btn-primary" href="{{ url_for('belajar') }}">Mulai perjalanan <span>→</span></a><a class="text-link" href="{{ url_for('tentang') }}">Kenali J-Learn ↗</a></div>
+    <div class="hero-note"><span>✿</span><strong>Daijoubu!</strong> Tidak harus langsung jago. Yang penting mulai.</div>
+    <div class="hero-stats"><div><strong>01</strong><span>Mulai dari dasar</span></div><i></i><div><strong>∞</strong><span>Ruang untuk berkembang</span></div></div>
+  </div>
+  <div class="hero-v2-art reveal">
+    <div class="hero-sakura sakura-a">✿</div><div class="hero-sakura sakura-b">✿</div>
+    <div class="hero-landscape"><div class="sun-disc"></div><div class="mountain mountain-back"></div><div class="mountain mountain-front"></div><div class="torii-gate"><i></i><b></b><span></span></div></div>
+    <div class="hero-mascot"><img src="{{ url_for('static', filename='images/kitsune-mascot.png') }}" alt="Kitsune, maskot J-Learn"></div>
+    <div class="mascot-intro"><small>YOUR STUDY COMPANION</small><strong>Yahho! Aku Kitsune.</strong><span>Teman belajar Bahasa Jepangmu!</span></div>
+    <div class="hero-float float-kana"><b>あ</b><span>Hiragana</span></div><div class="hero-float float-xp"><b>✦ +10 XP</b><span>Setiap langkah berarti</span></div>
+  </div>
+</section>
+
+<section class="quick-strip-v2"><div class="wrap quick-inner"><div><b>01</b><span>Kenali huruf</span></div><i>→</i><div><b>02</b><span>Tambah kosakata</span></div><i>→</i><div><b>03</b><span>Susun kalimat</span></div><i>→</i><div><b>04</b><span>Berani berbicara</span></div></div></section>
+
+<section class="section wrap journey-section">
+  <div class="section-heading reveal"><div><div class="eyebrow">MULAI PERJALANANMU</div><h2>Belajar dengan <em>jalur yang jelas.</em></h2><p class="section-subtitle">Bangun kemampuanmu satu tahap dalam satu waktu.</p></div><a class="text-link" href="{{ url_for('belajar') }}">Lihat semua materi ↗</a></div>
+  <div class="path-grid path-grid-v2">
+    <a class="path-card reveal" href="{{ url_for('kana') }}"><span class="path-number">01 / DASAR</span><div class="path-symbol">あ</div><h3>Hiragana & Katakana</h3><p>Kenali dua sistem huruf dasar Bahasa Jepang.</p><span class="card-arrow">↗</span></a>
+    <a class="path-card reveal" href="{{ url_for('kosakata') }}"><span class="path-number">02 / KOSAKATA</span><div class="path-symbol symbol-red">言</div><h3>Kosakata harian</h3><p>Pelajari kata dan ungkapan yang sering digunakan.</p><span class="card-arrow">↗</span></a>
+    <a class="path-card reveal" href="{{ url_for('grammar') }}"><span class="path-number">03 / KALIMAT</span><div class="path-symbol symbol-gold">文</div><h3>Tata bahasa dasar</h3><p>Mulai memahami pola kalimat sederhana.</p><span class="card-arrow">↗</span></a>
+  </div>
+</section>
+
+<section class="studio-showcase wrap reveal">
+  <div class="studio-copy"><div class="eyebrow light">J-LEARN INTERACTIVE LAB <span class="new-pill">NEW WORLD</span></div><h2>Belajar nggak harus <em>selalu serius.</em></h2><p>Masuk ke ruang eksperimen J-Studio. Coba simulasi percakapan, susun kalimat, dan latih pendengaranmu.</p><a class="btn btn-light" href="{{ url_for('studio') }}">Jelajahi J-Studio <span>→</span></a></div>
+  <div class="studio-tiles"><a href="{{ url_for('simulator') }}"><span>⛩</span><b>Life Simulator</b><small>Situasi sehari-hari</small></a><a href="{{ url_for('grammar') }}"><span>文</span><b>Grammar Lab</b><small>Susun kalimat</small></a><a href="{{ url_for('listening') }}"><span>♫</span><b>Listening Lab</b><small>Dengar & pahami</small></a></div>
+  <img class="studio-mascot" src="{{ url_for('static', filename='images/kitsune-mascot.png') }}" alt="Kitsune menyemangati siswa">
+</section>
+
+<section class="feature-band feature-band-v2"><div class="wrap feature-layout"><div class="reveal"><div class="eyebrow light">LEARN BY DOING</div><h2>Bukan cuma membaca.<br><em>Coba dan buktikan.</em></h2><p>Uji pemahaman lewat latihan singkat. Setiap jawaban adalah kesempatan untuk berkembang.</p><a class="btn btn-light" href="{{ url_for('latihan') }}">Coba latihan <span>→</span></a></div><div class="quiz-preview reveal"><div class="quiz-top"><span>MINI CHALLENGE</span><span>01 / 05</span></div><div class="quiz-question">Apa bunyi huruf ini?</div><div class="quiz-kana">あ</div><div class="quiz-options"><span>A. A</span><span>B. I</span><span>C. U</span></div><small>Contoh tampilan latihan • bukan penilaian resmi</small></div></div></section>
+
+<section class="section wrap culture-teaser culture-teaser-v2 reveal"><div class="culture-art"><div class="culture-circle">和</div><span class="culture-vertical">日本の文化</span><div class="culture-caption">CULTURE<br>NOTES</div></div><div class="culture-copy"><div class="eyebrow">LEBIH DARI SEKADAR BAHASA</div><h2>Bahasa membuka jalan untuk <em>memahami budaya.</em></h2><p>Kenali kebiasaan, makanan, tradisi, dan kehidupan sehari-hari di Jepang. Bahasa akan terasa lebih bermakna saat kita memahami konteksnya.</p><a class="text-link" href="{{ url_for('budaya') }}">Jelajahi budaya Jepang ↗</a></div></section>
+{% endblock %}

@@ -1,0 +1,276 @@
+
+{% extends "base.html" %}
+
+{% block title %}Listening Room — J-Learn{% endblock %}
+
+{% block content %}
+
+<section class="page-hero wrap">
+
+    <div class="eyebrow">AUDIO IMMERSION · 聞き取り</div>
+
+    <h1>
+        Listen closely.<br>
+        <em>Understand naturally.</em>
+    </h1>
+
+    <p>
+        Latih telinga mengenali kosakata Jepang.
+        Dengarkan audio, pilih arti yang sesuai,
+        lalu buka transkrip untuk mengevaluasi jawaban.
+    </p>
+
+</section>
+
+
+<section class="section wrap"
+         x-data="listeningLab()">
+
+    <div class="listening-layout">
+
+        <div class="listening-player">
+
+            <div class="record-disc">
+                <span>音</span>
+            </div>
+
+            <div class="eyebrow">
+                NOW PLAYING · JAPANESE WORD
+            </div>
+
+            <h2 x-text="current.jp"></h2>
+
+            <p x-text="current.romaji"></p>
+
+            <button class="btn btn-primary"
+                    @click="speak()">
+                ▶ Putar audio
+            </button>
+
+            <div class="audio-note">
+                Audio menggunakan Japanese voice pada browser/perangkatmu.
+            </div>
+
+        </div>
+
+
+        <div class="listening-quiz">
+
+            <div class="grammar-level"
+                 x-text="'TRACK ' + (index+1) + ' / ' + tracks.length">
+            </div>
+
+            <span class="studio-kicker">
+                WHAT DID YOU HEAR?
+            </span>
+
+            <h3>Pilih arti yang kamu dengar.</h3>
+
+
+            <div class="listening-choices">
+
+                <template x-for="(choice,i) in current.choices"
+                          :key="choice">
+
+                    <button
+                        @click="answer(i)"
+                        :disabled="selected !== null"
+                        :class="selected === i
+                            ? (i === current.correct
+                                ? 'is-correct'
+                                : 'is-wrong')
+                            : ''"
+
+                        x-text="String.fromCharCode(65+i) + '. ' + choice">
+
+                    </button>
+
+                </template>
+
+            </div>
+
+
+            <div class="listening-feedback"
+                 x-show="selected !== null"
+                 x-cloak>
+
+                <strong x-text="
+                    selected === current.correct
+                    ? 'Tepat! よくできました'
+                    : 'Belum tepat, tetap lanjut.'
+                ">
+                </strong>
+
+                <p x-text="current.note"></p>
+
+                <button class="text-link"
+                        @click="showTranscript = !showTranscript"
+                        x-text="showTranscript
+                            ? 'Sembunyikan transkrip'
+                            : 'Lihat transkrip'">
+                </button>
+
+                <div class="transcript"
+                     x-show="showTranscript"
+                     x-text="
+                        current.jp + ' — ' +
+                        current.romaji + ' — ' +
+                        current.meaning
+                     ">
+                </div>
+
+                <button class="btn btn-primary"
+                        @click="next()"
+                        x-text="index === tracks.length - 1
+                            ? 'Ulangi sesi ↻'
+                            : 'Track berikutnya →'">
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+
+function listeningLab() {
+
+    return {
+
+        index: 0,
+        selected: null,
+        showTranscript: false,
+
+        tracks: [
+
+            {
+                jp: "ありがとう",
+                romaji: "Arigatou",
+                meaning: "Terima kasih",
+
+                choices: [
+                    "Permisi",
+                    "Terima kasih",
+                    "Selamat malam"
+                ],
+
+                correct: 1,
+
+                note:
+                    "ありがとう (arigatou) adalah ungkapan terima kasih dalam situasi informal."
+            },
+
+
+            {
+                jp: "おはよう",
+                romaji: "Ohayou",
+                meaning: "Selamat pagi",
+
+                choices: [
+                    "Selamat pagi",
+                    "Selamat tinggal",
+                    "Selamat siang"
+                ],
+
+                correct: 0,
+
+                note:
+                    "おはよう (ohayou) merupakan salam yang digunakan pada pagi hari."
+            },
+
+
+            {
+                jp: "みず",
+                romaji: "Mizu",
+                meaning: "Air",
+
+                choices: [
+                    "Buku",
+                    "Air",
+                    "Kucing"
+                ],
+
+                correct: 1,
+
+                note:
+                    "みず (mizu) berarti air."
+            },
+
+
+            {
+                jp: "ともだち",
+                romaji: "Tomodachi",
+                meaning: "Teman",
+
+                choices: [
+                    "Guru",
+                    "Pelajar",
+                    "Teman"
+                ],
+
+                correct: 2,
+
+                note:
+                    "ともだち (tomodachi) berarti teman."
+            }
+
+        ],
+
+
+        get current() {
+            return this.tracks[this.index];
+        },
+
+
+        speak() {
+
+            if (!("speechSynthesis" in window)) {
+                alert("Browser tidak mendukung text-to-speech.");
+                return;
+            }
+
+            speechSynthesis.cancel();
+
+            const utterance =
+                new SpeechSynthesisUtterance(this.current.jp);
+
+            utterance.lang = "ja-JP";
+            utterance.rate = 0.82;
+
+            speechSynthesis.speak(utterance);
+
+        },
+
+
+        answer(index) {
+
+            this.selected = index;
+
+        },
+
+
+        next() {
+
+            this.index =
+                (this.index + 1) % this.tracks.length;
+
+            this.selected = null;
+            this.showTranscript = false;
+
+        }
+
+    };
+
+}
+
+</script>
+
+{% endblock %}
